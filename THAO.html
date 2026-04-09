@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm tra mật khẩu</title>
+</head>
+<body>
+
+<h2>Kiểm tra mật khẩu</h2>
+<button onclick="nhapMatKhau()">Nhập mật khẩu</button>
+
+<p id="ketQua"></p>
+
+<script>
+function kiemTraMatKhau(password) {
+    let loi = [];
+
+    if (password.length < 8) {
+        loi.push("Mật khẩu phải có ít nhất 8 ký tự");
+    }
+    if (!/[A-Z]/.test(password)) {
+        loi.push("Phải có ít nhất 1 chữ in hoa");
+    }
+    if (!/[a-z]/.test(password)) {
+        loi.push("Phải có ít nhất 1 chữ thường");
+    }
+    if (!/[0-9]/.test(password)) {
+        loi.push("Phải có ít nhất 1 chữ số");
+    }
+    if (!/[@#$%^&*!]/.test(password)) {
+        loi.push("Phải có ít nhất 1 ký tự đặc biệt");
+    }
+
+    return loi;
+}
+
+function danhGiaDoManh(password) {
+    if (password.length === 8) {
+        return "Yếu";
+    } else if (password.length < 12) {
+        return "Trung bình";
+    } else {
+        return "Mạnh";
+    }
+}
+
+function nhapMatKhau() {
+    let password;
+
+    do {
+        password = prompt("Nhập mật khẩu:");
+
+        if (password === null) return; // bấm hủy
+
+        let loi = kiemTraMatKhau(password);
+
+        if (loi.length > 0) {
+            alert("Mật khẩu không hợp lệ:\n" + loi.join("\n"));
+        } else {
+            let doManh = danhGiaDoManh(password);
+            document.getElementById("ketQua").innerHTML =
+                "Mật khẩu hợp lệ!<br>Độ mạnh: <b>" + doManh + "</b>";
+            break;
+        }
+
+    } while (true);
+}
+</script>
+
+</body>
+</html>
